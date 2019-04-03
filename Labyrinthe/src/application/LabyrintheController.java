@@ -12,6 +12,8 @@ public class LabyrintheController {
 	@FXML
 	private ComboBox Algo;
 	
+	@FXML
+	private Button Lancer;
 	
 	
 }
