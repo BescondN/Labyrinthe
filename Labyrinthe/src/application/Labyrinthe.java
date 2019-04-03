@@ -20,9 +20,19 @@ public class Labyrinthe implements Explorable {
 	}
 	
 	public void chargerFichier() {
-		Path road = Paths.get("C");
+		Path road = Paths.get("C:\\Users\\Alexandre\\Documents");
+		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Coordonnees getDepart() {
 		// TODO Auto-generated method stub
