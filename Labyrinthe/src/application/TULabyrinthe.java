@@ -3,5 +3,9 @@ import javafx.application.Application;
 
 public class TULabyrinthe {
 	
-	System.out.println("TEST");
+	public static void main(String[] args) 
+	{
+		Labyrinthe lab = new Labyrinthe();
+		lab.chargerFichier();
+	}
 }
