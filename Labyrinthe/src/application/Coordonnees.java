@@ -8,7 +8,9 @@ public class Coordonnees {
 
 	int coordX;
 	int coordY;
+	int hash;
 	
+
 	/* hashcode() Generate a code with coords X and Y
 	 * @see java.lang.Object#hashCode()
 	 * return ( coordY ) + 10 000 * coordX
@@ -23,6 +25,11 @@ public class Coordonnees {
 		hash = hash + ( 10000 * coordX );
 		
 		
+		return hash;
+	}
+	
+	public int getHash() 
+	{
 		return hash;
 	}
 }
