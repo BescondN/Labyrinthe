@@ -1,24 +1,40 @@
 package application;
 
+/**
+ * @author Quentin
+ * 
+ */
 public class Step {
-	
+
 	int own_box = 0;
 	int previous_box = 0;
 	char status;
 	
+	/** Constructor of Step
+	 * @param own_box
+	 * @param previous_box
+	 * @param status
+	 */
+	public Step(int own_box, int previous_box, char status) {
+		super();
+		this.own_box = own_box;
+		this.previous_box = previous_box;
+		this.status = status;
+	}
+	
 	public void Set_Own_Box(int x, int y)
 	{
-		
+		this.own_box = Coordonnees.hashCode(x, y);
 	}
 
 	public void Set_Previous_Box(int x, int y)
 	{
-		
+		this.previous_box = Coordonnees.hashCode(x, y);
 	}
 	
 	public void Set_Previous_Box(int hash)
 	{
-		
+		this.previous_box = hash;
 	}
 	
 	/**
