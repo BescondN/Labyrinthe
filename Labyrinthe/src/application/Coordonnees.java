@@ -12,6 +12,7 @@ public class Coordonnees {
 	/* hashcode() Generate a code with coords X and Y
 	 * @see java.lang.Object#hashCode()
 	 * return ( coordY ) + 1000 * coordX
+	 * limitant à une matrice de 10 000 x 10 000
 	 */
 	@Override
 	public int hashCode() {
