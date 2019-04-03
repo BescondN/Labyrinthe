@@ -1,5 +1,10 @@
 package application;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+
 public class Labyrinthe implements Explorable {
 	
 	private int labyrinthe[][];
@@ -15,7 +20,31 @@ public class Labyrinthe implements Explorable {
 	}
 	
 	public void chargerFichier() {
-		Path road = Paths.get("C")
+		Path road = Paths.get("C");
+	}
+
+	@Override
+	public Coordonnees getDepart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Coordonnees getArrivee() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean estArrivee() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List getCasesVoisines() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	//Créer Labyrinthe
