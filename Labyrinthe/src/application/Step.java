@@ -48,4 +48,19 @@ public class Step {
 	{
 		this.status = sta;
 	}
+	
+	public char Get_Status()
+	{
+		return this.status;
+	}
+	
+	public int Get_Own_Box()
+	{
+		return this.own_box;
+	}
+	
+	public int Get_Previous_Box()
+	{
+		return this.previous_box;
+	}
 }
