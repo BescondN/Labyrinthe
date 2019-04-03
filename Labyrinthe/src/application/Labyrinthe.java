@@ -1,5 +1,6 @@
 package application;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -20,7 +21,11 @@ public class Labyrinthe implements Explorable {
 	}
 	
 	public void chargerFichier() {
-		Path road = Paths.get("C:\\Users\\Alexandre\\Documents");
+		Path road = Paths.get("map.txt");
+		boolean reponse = Files.exists(road);
+		System.out.println(reponse);
+		
+		
 		
 	}
 
