@@ -1,5 +1,8 @@
 package application;
 
-public class Labyrinthe {
+public class Labyrinthe implements Explorable<E> {
+	
+	
+	
 
 }
