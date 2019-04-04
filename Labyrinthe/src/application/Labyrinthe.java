@@ -23,7 +23,6 @@ public class Labyrinthe implements Explorable {
 		chargerFichier();
 		labyrinthe = new int[nbligne][nbcolone];
 		createLabyrinthe();
-		System.out.println("TERMINE");
 	}
 	
 	public void chargerFichier() {
@@ -60,25 +59,20 @@ public class Labyrinthe implements Explorable {
 			System.out.println();
 			for (int j=0; j<lignes.get(i).length(); j++) {
 				pointage = lignes.get(i).charAt(j);
-				if (pointage == '-') {
-					labyrinthe[i][j] = 1;
-					System.out.print("1");
-				}
+
 				if (pointage == ' ') {
-					labyrinthe[i][j] = 0;
-					System.out.print("0");
+					labyrinthe[i-4][j] = 0;
 				}
-				if (pointage == '|') {
-					
-					labyrinthe[i][j] = 1;
-					System.out.print("1");
-				}
-				if (pointage == '+') {
-					labyrinthe[i][j] = 1;
-					System.out.print("1");
+				else
+				{
+					labyrinthe[i-4][j] = 1;
 				}
 			}
 		}
+	}
+
+	public int[][] getLabyrinthe() {
+		return labyrinthe;
 	}
 
 	@Override
