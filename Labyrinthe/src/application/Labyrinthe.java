@@ -23,6 +23,7 @@ public class Labyrinthe implements Explorable {
 		chargerFichier();
 		labyrinthe = new int[nbligne][nbcolone];
 		createLabyrinthe();
+		System.out.println("TERMINE");
 	}
 	
 	public void chargerFichier() {
@@ -56,31 +57,38 @@ public class Labyrinthe implements Explorable {
 		char pointage;
 		for (int i=4; i<lignes.size(); i++)
 		{
-			for (int j=0; j<lignes.get(i).size(); j++) {
+			System.out.println();
+			for (int j=0; j<lignes.get(i).length(); j++) {
 				pointage = lignes.get(i).charAt(j);
 				if (pointage == '-') {
-					System.out.println("Test");
+					labyrinthe[i][j] = 1;
+					System.out.print("1");
 				}
-				String data = "MonString";
+				if (pointage == ' ') {
+					labyrinthe[i][j] = 0;
+					System.out.print("0");
+				}
+				if (pointage == '|') {
+					
+					labyrinthe[i][j] = 1;
+					System.out.print("1");
+				}
+				if (pointage == '+') {
+					labyrinthe[i][j] = 1;
+					System.out.print("1");
+				}
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
-	public Coordonnees getDepart() {
+	public Step getDepart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Coordonnees getArrivee() {
+	public Step getArrivee() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -96,6 +104,13 @@ public class Labyrinthe implements Explorable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+
 
 	//Créer Labyrinthe
 	//Cherche case départ
