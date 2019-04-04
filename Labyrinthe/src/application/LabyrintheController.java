@@ -1,19 +1,51 @@
 package application;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+	import javafx.scene.control.TextField;
+	import javafx.fxml.FXML;
+	import javafx.geometry.Pos;
+	import javafx.scene.layout.GridPane;
 
 public class LabyrintheController {
-	
+			
 	@FXML
-	private ComboBox Atelier;
+	public  GridPane grid;
 	
-	@FXML
-	private ComboBox Algo;
 	
-	@FXML
-	private Button Lancer;
+	public  void Affichage() {
 	
+		int[][] tab = { { 1,1,1,0 }, { 0,0,0,1 }, { 0,1,0,0 }, { 1,1,0,1 }, { 1,1,1,0 }, { 0,0,1,0 } };
+
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(0);
+		grid.setVgap(0);
+	    
+		int u = tab.length;
+		for (int i = 0; i<u; i++)
+		{
+			int[] e = tab[i];
+			for (int a = 0; a < e.length; a++)
+			{
+
+				TextField tf = new TextField();
+				tf.setPrefSize(20, 20);
+				tf.setEditable(false);
+				tf.setAlignment(Pos.CENTER);
+				tf.setText("");
+				
+				if(e[a]==1) {
+					tf.setStyle("-fx-control-inner-background: black;");
+					grid.add(tf, i, a);
+				} else
+				{
+				    tf.setStyle("-fx-control-inner-background: white;");
+					grid.add(tf, i, a);
+				}
+			}
+		}
+	}
+	public void initialize()
+	{
+		Affichage();
+	}
 	
 }
