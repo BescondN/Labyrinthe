@@ -6,18 +6,25 @@ package application;
  */
 public class Coordonnees {
 	
+	private int x,y;
+	
+	public Coordonnees(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
 
 	/* hashcode() Generate a code with coords X and Y
 	 * @see java.lang.Object#hashCode()
 	 * return ( coordY ) + 10 000 * coordX
 	 * limit to a matrix of 10 000 x 10 000
 	 */
-	public static int hashCode(int coordX, int coordY) {
+	public int hashCode() {
 		
 		int hash = 0;
 		
-		hash = hash + coordY;
-		hash = hash + ( 10000 * coordX );
+		hash = hash + y;
+		hash = hash + ( 10000 * x );
 		
 		
 		return hash;

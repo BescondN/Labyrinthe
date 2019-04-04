@@ -5,16 +5,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-
 public class Labyrinthe implements Explorable {
 	
 	private int labyrinthe[][];
 	private List<String> lignes;
 	private int nbligne;
 	private int nbcolone;
-	private int startingBox;
-	private int arrivalBox;
-	private int adjacentBoxes[];
+	private Coordonnees startingBox;
+	private Coordonnees arrivalBox;
 	private String NameLab;
 	
 	/**
@@ -78,14 +76,62 @@ public class Labyrinthe implements Explorable {
 	}
 	
 	/*
+	 * Generate starting box
+	 */
+	public void generateStartingBox() {
+		
+	}
+	
+	/*
+	 * Generate arrival box
+	 */
+	public void generateArrivalBox() {
+		
+	}
+	
+	/*
 	 * Turn the labyrinth upside down
 	 */
 	public int[][] getLabyrinthe() {
 		return labyrinthe;
 	}
+	
+	/*
+	 * Return the name of the labyrinth
+	 */
+	public String getNameLabyrinthe() {
+		return NameLab;
+	}
+	
+	/*
+	 * Return starting box
+	 */
+	//public Step getStartingBox() {
+		
+		
+		
+	//}
+	
+	/*
+	 * Return arrival box
+	 */
+	//public Step getArrivalBox() {
+		
+	//}
 
+	//generateAdjacentBox(int hashCode)
+	//return liste Step
+	
+	
+	
+	
+	
+	//Divers...
+	
 	@Override
 	public Step getDepart() {
+		
+		//return new Step(startingBox.hashCode());
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -109,7 +155,10 @@ public class Labyrinthe implements Explorable {
 	}
 	
 	
-	
+	//GénérerDepart
+	//GénérerSortie
+	//RatournerDépart
+	//RetournerSortie
 	
 	
 	

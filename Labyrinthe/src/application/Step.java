@@ -12,11 +12,9 @@ public class Step<E> {
 	 * @param previous_box
 	 * @param status
 	 */
-	public Step(int own_box, int previous_box, char status) {
+	public Step(int own_box) {
 		super();
 		this.own_box = own_box;
-		this.previous_box = previous_box;
-		this.status = status;
 	}
 	
 	/**Set the value of the actual box with his hashcode
