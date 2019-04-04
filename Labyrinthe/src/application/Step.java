@@ -1,7 +1,7 @@
 package application;
 
 
-public class Step {
+public class Step<E> {
 
 	int own_box = 0;
 	int previous_box = 0;
