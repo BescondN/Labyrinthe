@@ -13,9 +13,10 @@ public class LabyrintheController {
 	
 	public  void Affichage() {
 	
-		int[][] tab = { { 1,1,1,0 }, { 0,0,0,1 }, { 0,1,0,0 }, { 1,1,0,1 }, { 1,1,1,0 }, { 0,0,1,0 } };
+		int[][] tab = { { 1,1,1,0 }, { 0,0,0,1 }, { 0,1,0,0 }, { 1,1,0,1 } };
 
-		grid.setAlignment(Pos.CENTER);
+		grid.setPrefHeight(200);
+		grid.setPrefWidth(200);
 		grid.setHgap(0);
 		grid.setVgap(0);
 	    
@@ -27,9 +28,8 @@ public class LabyrintheController {
 			{
 
 				TextField tf = new TextField();
-				tf.setPrefSize(20, 20);
+				tf.setPrefSize(200/4, 200/4);
 				tf.setEditable(false);
-				tf.setAlignment(Pos.CENTER);
 				tf.setText("");
 				
 				if(e[a]==1) {
