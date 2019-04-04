@@ -17,16 +17,22 @@ public class Labyrinthe implements Explorable {
 	private int adjacentBoxes[];
 	private String NameLab;
 	
-	//Méthodes
-	
-	public Labyrinthe() {
-		chargerFichier();
+	/**
+ 	* Builder of the Labyrinth
+ 	* @param file Base file
+ 	*/
+	public Labyrinthe(String file) {
+		chargerFichier(file);
 		labyrinthe = new int[nbligne][nbcolone];
 		createLabyrinthe();
 	}
 	
-	public void chargerFichier() {
-		Path road = Paths.get("map.txt");
+	/**
+	 * Loading the file
+	 * @param file Base file
+	 */
+	public void chargerFichier(String file) {
+		Path road = Paths.get(file);
 		try {
 			String start;
 			String end;
@@ -47,11 +53,11 @@ public class Labyrinthe implements Explorable {
 			System.out.println(e);
 			System.out.println("ERROR : Le fichier ne s'ouvre pas...");
 		}
-		
-		
-		
 	}
-
+	
+	/**
+	 * Creation of the labyrinth
+	 */
 	public void createLabyrinthe() {
 		char pointage;
 		for (int i=4; i<lignes.size(); i++)
@@ -70,7 +76,10 @@ public class Labyrinthe implements Explorable {
 			}
 		}
 	}
-
+	
+	/*
+	 * Turn the labyrinth upside down
+	 */
 	public int[][] getLabyrinthe() {
 		return labyrinthe;
 	}
@@ -104,12 +113,8 @@ public class Labyrinthe implements Explorable {
 	
 	
 	
-
-
-	//Créer Labyrinthe
 	//Cherche case départ
 	//Chercher case d'arrivée
-	//Charge fichier
 	//getCaseDépart
 	//getCaseArrivée
 	//getCaseVoisine
