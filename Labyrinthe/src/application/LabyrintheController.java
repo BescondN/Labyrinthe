@@ -1,6 +1,6 @@
 package application;
 
-	import javafx.scene.control.Button;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
@@ -23,7 +23,9 @@ public class LabyrintheController {
 	
 	@FXML
 	public void actionLancer (ActionEvent evt){
-		
+		System.out.println("lancemment de l'affichage ");
+		Affichage();
+
 	}
 	
 	ObservableList<String> listAtelier = FXCollections.observableArrayList("Atelier1","Atelier3");
@@ -80,7 +82,7 @@ public class LabyrintheController {
 	}
 	public void initialize()
 	{
-		Affichage();
+		
 		Atelier.setItems(listAtelier);
 		Algo.setItems(listAlgo);
 
