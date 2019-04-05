@@ -1,3 +1,10 @@
+//=============================================================================//
+//                    Name of file   : "Labyrinthe.java"                       //
+//                    Author         : Alexandre Farret                        //
+//                    Creation date  : 02/04/2019                              //
+//                    Last update    : 05/04/2019                              //
+//=============================================================================//
+
 package application;
 
 import java.nio.file.Files;
@@ -7,6 +14,7 @@ import java.util.List;
 
 public class Labyrinthe implements Explorable {
 	
+	//---- Attributs ----
 	private int labyrinthe[][];
 	private List<String> lignes;
 	private int nbligne;
@@ -15,23 +23,29 @@ public class Labyrinthe implements Explorable {
 	private Coordonnees arrivalBox;
 	private String NameLab;
 	
+	//---- Methods ----
 	/**
  	* Builder of the Labyrinth
  	* @param file Base file
  	*/
-	public Labyrinthe(String file) {
+	public Labyrinthe(String file)
+	{
 		chargerFichier(file);
 		labyrinthe = new int[nbligne][nbcolone];
 		createLabyrinthe();
+		generateStartingBox();
+		generateArrivalBox();
 	}
 	
 	/**
 	 * Loading the file
 	 * @param file Base file
 	 */
-	public void chargerFichier(String file) {
+	public void chargerFichier(String file)
+	{
 		Path road = Paths.get(file);
-		try {
+		try 
+		{
 			String start;
 			String end;
 			String size[];
@@ -47,7 +61,8 @@ public class Labyrinthe implements Explorable {
 			nbligne = taille[0];
 			nbcolone =  taille[1];
 		}
-		catch (Exception e){
+		catch (Exception e)
+		{
 			System.out.println(e);
 			System.out.println("ERROR : Le fichier ne s'ouvre pas...");
 		}
@@ -56,7 +71,8 @@ public class Labyrinthe implements Explorable {
 	/**
 	 * Creation of the labyrinth
 	 */
-	public void createLabyrinthe() {
+	public void createLabyrinthe()
+	{
 		char pointage;
 		for (int i=4; i<lignes.size(); i++)
 		{
@@ -75,55 +91,60 @@ public class Labyrinthe implements Explorable {
 		}
 	}
 	
-	/*
+	/**
 	 * Generate starting box
 	 */
-	public void generateStartingBox() {
-		
+	public void generateStartingBox()
+	{
+		String s_starting[] = lignes.get(1).split("	");
+		int starting[] = new int[2];
+		starting[0] = Integer.parseInt(s_starting[0]);
+		starting[1] = Integer.parseInt(s_starting[1]);
+		startingBox = new Coordonnees(starting[0], starting[1]);
 	}
 	
-	/*
+	/**
 	 * Generate arrival box
 	 */
-	public void generateArrivalBox() {
-		
+	public void generateArrivalBox()
+	{
+		String s_arrival[] = lignes.get(1).split("	");
+		int arrival[] = new int[2];
+		arrival[0] = Integer.parseInt(s_arrival[0]);
+		arrival[1] = Integer.parseInt(s_arrival[1]);
+		arrivalBox = new Coordonnees(arrival[0], arrival[1]);
 	}
 	
-	/*
-	 * Turn the labyrinth upside down
+	/**
+	 * Return matrix labyrinth
+	 * @return table labyrinth
 	 */
-	public int[][] getLabyrinthe() {
+	public int[][] getLabyrinthe()
+	{
 		return labyrinthe;
 	}
 	
-	/*
+	/**
 	 * Return the name of the labyrinth
+	 * @return name labyrinth
 	 */
-	public String getNameLabyrinthe() {
+	public String getNameLabyrinthe() 
+	{
 		return NameLab;
 	}
 	
-	/*
-	 * Return starting box
-	 */
-	//public Step getStartingBox() {
-		
-		
-		
-	//}
 	
-	/*
-	 * Return arrival box
-	 */
-	//public Step getArrivalBox() {
-		
+	//public Step aroundBox(int hashCode)
+	//{
+		//Retourne case voisine
+		//Genere un hash code pour chacune
+		//Retourne sous forme de step
 	//}
 
-	//generateAdjacentBox(int hashCode)
-	//return liste Step
-	
-	
-	
+		
+		
+
+
 	
 	
 	//Divers...
