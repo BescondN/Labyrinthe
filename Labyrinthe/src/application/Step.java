@@ -3,9 +3,9 @@ package application;
 
 public class Step<E> {
 
-	E own_box;
-	Step<E> previous_box;
-	char status;
+	private E own_box;
+	private Step<E> previous_box;
+	public int longueur;
 	
 	/** Constructor of Step
 	 * @param own_box
@@ -15,6 +15,7 @@ public class Step<E> {
 	public Step(E e) {
 		super();
 		own_box = e;
+		longueur=0;
 	}
 	
 	/**

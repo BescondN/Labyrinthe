@@ -32,17 +32,38 @@ public class LabyrintheController {
 	@FXML
 	public void actionLancer (ActionEvent evt){
 		
-		Algo test = new Algo();
-		
-		showWay(test.Profondeur(labyrinthe));
-		
-		
-		
+		if(Atelier.getValue() == null)
+		{
+	    	JOptionPane.showMessageDialog(null,"Sélectionner un atelier !","Labyrinthe", JOptionPane.INFORMATION_MESSAGE);
 
+		}
+		
+		Algo test = new Algo();	
+		
+		if(Algo.getValue() == null)
+		{
+	    	JOptionPane.showMessageDialog(null,"Sélectionner un algo de recherche!","Labyrinthe", JOptionPane.INFORMATION_MESSAGE);
+
+		}
+		else
+		{
+			if(Algo.getValue().toString().equals("Largeur"))
+			{
+				showWay(test.Largeur(labyrinthe));
+			}
+			else if(Algo.getValue().toString().equals("Profondeur"))
+			{
+				showWay(test.Profondeur(labyrinthe));
+			}
+			else if(Algo.getValue().toString().equals("A*"))
+			{
+				showWay(test.Largeur(labyrinthe));
+			}
+		}
 	}
 	
 	ObservableList<String> listAtelier = FXCollections.observableArrayList("map.txt","map2.txt","map3.txt","map4.txt","map5.txt","mapEchec.txt");
-	ObservableList<String> listAlgo = FXCollections.observableArrayList("Algo1","Algo2");
+	ObservableList<String> listAlgo = FXCollections.observableArrayList("Largeur","Profondeur","A*");
 
 	@FXML
 	public void actionAtelier (ActionEvent evt){
@@ -58,6 +79,8 @@ public class LabyrintheController {
 	@FXML
 	public void actionAlgo (ActionEvent evt){
 		
+		labyrinthe = new Labyrinthe(Atelier.getValue().toString());
+		Affichage(labyrinthe);
 		
 		
 	}

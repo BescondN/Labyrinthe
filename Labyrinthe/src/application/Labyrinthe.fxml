@@ -14,7 +14,7 @@
          <children>
             <ComboBox fx:id="Atelier" layoutX="137.0" layoutY="109.0" onAction="#actionAtelier" prefHeight="25.0" prefWidth="163.0" promptText="Selectionner un atelier" />
             <Button fx:id="Lancer" layoutX="760.0" layoutY="109.0" mnemonicParsing="false" onAction="#actionLancer" text="Lancer" />
-            <ComboBox fx:id="Algo" layoutX="486.0" layoutY="109.0" onAction="#actionAtelier" prefWidth="150.0" promptText="Selection un algo" />
+            <ComboBox fx:id="Algo" layoutX="486.0" layoutY="109.0" onAction="#actionAlgo" prefWidth="150.0" promptText="Selection un algo" />
          </children>
       </AnchorPane>
    </top>
