@@ -34,7 +34,7 @@ public class LabyrintheController {
 		
 		Algo test = new Algo();
 		
-		showWay(test.Largeur(labyrinthe));
+		showWay(test.Profondeur(labyrinthe));
 		
 		
 		
@@ -98,8 +98,8 @@ public class LabyrintheController {
 		Coordonnees depart = lab.startingBox;
 		Coordonnees arrivee =lab.arrivalBox;
 
-		((TextField)grid.getChildren().get(depart.x*(tab[0].length)+depart.y)).setStyle("-fx-control-inner-background: green");
-		((TextField)grid.getChildren().get(arrivee.x*(tab[0].length)+arrivee.y)).setStyle("-fx-control-inner-background: red");
+		((TextField)grid.getChildren().get(depart.getx()*(tab[0].length)+depart.gety())).setStyle("-fx-control-inner-background: green");
+		((TextField)grid.getChildren().get(arrivee.getx()*(tab[0].length)+arrivee.gety())).setStyle("-fx-control-inner-background: red");
 		
 	}
 	public void initialize()
@@ -130,7 +130,7 @@ public class LabyrintheController {
 					r.add(chemin.Get_Previous_Box());
 					en = (Coordonnees.generateCoordonnees((int) chemin.Get_Own_Box()));
 					
-					((TextField)grid.getChildren().get(en.x*(tab[0].length)+en.y)).setStyle("-fx-control-inner-background: blue");
+					((TextField)grid.getChildren().get(en.getx()*(tab[0].length)+en.gety())).setStyle("-fx-control-inner-background: blue");
 				}
 				
 			}

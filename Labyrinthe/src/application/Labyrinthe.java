@@ -115,17 +115,7 @@ public class Labyrinthe implements Explorable<Step<Integer>> {
 	public Boolean estArrivee(Step etape) {
 		
 		Coordonnees coor = Coordonnees.generateCoordonnees((int) etape.Get_Own_Box());
-		
-		
-		List<Step<Integer>> adjacentsBoxes = getCasesVoisines(etape);
-		Coordonnees y;
-		for(Step<Integer> x : adjacentsBoxes)
-		{
-			y = Coordonnees.generateCoordonnees(x.Get_Own_Box());
-			
-		}
-		
-		if(coor.x == arrivalBox.x && coor.y == arrivalBox.y)
+		if(coor.getx() == arrivalBox.getx() && coor.gety() == arrivalBox.gety())
 		{
 			return true;
 		}
@@ -138,32 +128,32 @@ public class Labyrinthe implements Explorable<Step<Integer>> {
 		List<Step<Integer>> adjacentsBoxes = new ArrayList<Step<Integer>>();
 		Coordonnees currentStep = (Coordonnees.generateCoordonnees((int)etape.Get_Own_Box()));
 		
-		if(currentStep.x>0)
+		if(currentStep.getx()>0)
 		{
-			if(labyrinthe[currentStep.x-1][currentStep.y] == 0)
+			if(labyrinthe[currentStep.getx()-1][currentStep.gety()] == 0)
 			{
-				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x-1, currentStep.y).gethashCode()));
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.getx()-1, currentStep.gety()).gethashCode()));
 			}
 		}
-		if(currentStep.x<labyrinthe.length-1)
+		if(currentStep.getx()<labyrinthe.length-1)
 		{
-			if(labyrinthe[currentStep.x+1][currentStep.y] == 0)
+			if(labyrinthe[currentStep.getx()+1][currentStep.gety()] == 0)
 			{
-				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x+1, currentStep.y).gethashCode()));
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.getx()+1, currentStep.gety()).gethashCode()));
 			}
 		}
-		if(currentStep.y>0)
+		if(currentStep.gety()>0)
 		{
-			if(labyrinthe[currentStep.x][currentStep.y-1] == 0)
+			if(labyrinthe[currentStep.getx()][currentStep.gety()-1] == 0)
 			{
-				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x, currentStep.y-1).gethashCode()));
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.getx(), currentStep.gety()-1).gethashCode()));
 			}
 		}
-		if(currentStep.y<labyrinthe[0].length-1)
+		if(currentStep.gety()<labyrinthe[0].length-1)
 		{
-			if(labyrinthe[currentStep.x][currentStep.y+1] == 0)
+			if(labyrinthe[currentStep.getx()][currentStep.gety()+1] == 0)
 			{
-				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x, currentStep.y+1).gethashCode()));
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.getx(), currentStep.gety()+1).gethashCode()));
 			}
 		}
 		return adjacentsBoxes;

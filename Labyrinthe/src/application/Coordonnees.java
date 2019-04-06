@@ -7,9 +7,9 @@ package application;
 public class Coordonnees {
 	
 
-	public int x;
-	public int y;
-	public int hashcode;
+	private int x;
+	private int y;
+	private int hashcode;
 	
 	
 	
