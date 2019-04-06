@@ -2,10 +2,12 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
@@ -13,8 +15,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-	import javafx.geometry.Pos;
-	import javafx.scene.layout.GridPane;
+import javafx.geometry.Pos;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 
 public class LabyrintheController {
 		
@@ -27,7 +30,11 @@ public class LabyrintheController {
 	@FXML	
 	public ComboBox Algo;
 	
+	@FXML	
+	public Label Temps;
+	
 	private Labyrinthe labyrinthe;
+	private Algo algoRecherche;
 	
 	@FXML
 	public void actionLancer (ActionEvent evt){
@@ -38,7 +45,7 @@ public class LabyrintheController {
 
 		}
 		
-		Algo test = new Algo();	
+		algoRecherche = new Algo();	
 		
 		if(Algo.getValue() == null)
 		{
@@ -49,21 +56,20 @@ public class LabyrintheController {
 		{
 			if(Algo.getValue().toString().equals("Largeur"))
 			{
-				showWay(test.Largeur(labyrinthe));
+				showWay(algoRecherche.Largeur(labyrinthe));
 			}
 			else if(Algo.getValue().toString().equals("Profondeur"))
 			{
-				showWay(test.Profondeur(labyrinthe));
+				showWay(algoRecherche.Profondeur(labyrinthe));
 			}
 			else if(Algo.getValue().toString().equals("A*"))
 			{
-				showWay(test.Largeur(labyrinthe));
+				showWay(algoRecherche.Largeur(labyrinthe));
 			}
 		}
 	}
 	
-	ObservableList<String> listAtelier = FXCollections.observableArrayList("map.txt","map2.txt","map3.txt","map4.txt","map5.txt","mapEchec.txt");
-	ObservableList<String> listAlgo = FXCollections.observableArrayList("Largeur","Profondeur","A*");
+	
 
 	@FXML
 	public void actionAtelier (ActionEvent evt){
@@ -79,8 +85,17 @@ public class LabyrintheController {
 	@FXML
 	public void actionAlgo (ActionEvent evt){
 		
-		labyrinthe = new Labyrinthe(Atelier.getValue().toString());
-		Affichage(labyrinthe);
+		if(Atelier.getValue() == null)
+		{
+	    	JOptionPane.showMessageDialog(null,"Sélectionner aussi un atelier!","Labyrinthe", JOptionPane.INFORMATION_MESSAGE);
+
+		}
+		else
+		{
+			labyrinthe = new Labyrinthe(Atelier.getValue().toString());
+			Affichage(labyrinthe);
+		}
+		
 		
 		
 	}
@@ -97,27 +112,26 @@ public class LabyrintheController {
 
 		grid.getChildren().clear();
 		int[][] tab = lab.getLabyrinthe();
-		grid.setPrefHeight(200);
-		grid.setPrefWidth(200);
-		grid.setHgap(0);
-		grid.setVgap(0);
-	    
-		for(int i = 0; i<tab.length;i++)
-		{
-			for(int j = 0; j<tab[i].length;j++)
-			{
-				TextField tf = new TextField();
-				tf.setPrefSize(200/4, 200/4);
-				tf.setEditable(false);
-				tf.setText("");
-				tf.setStyle("-fx-control-inner-background: white;");
-				if(tab[i][j] == 1)
-				{
-					tf.setStyle("-fx-control-inner-background: black;");
-				}
-				grid.add(tf, j, i);
-			}
-		}
+
+			    
+		 for(int i = 0; i < tab.length; i++)
+		 {
+             for(int j = 0; j < tab[i].length; j++)
+             {
+                 TextField tf = new TextField();
+                 tf.setPrefSize(50,50);
+                 tf.setMaxSize(50,50);
+                 tf.setEditable(false);
+                 if(tab[i][j] == 1)
+                 {
+                     tf.setStyle("-fx-control-inner-background: black");
+                 }
+           
+   
+                 
+            	 grid.add(tf, j, i);
+             }
+		 }
 		Coordonnees depart = lab.startingBox;
 		Coordonnees arrivee =lab.arrivalBox;
 
@@ -127,6 +141,8 @@ public class LabyrintheController {
 	}
 	public void initialize()
 	{
+		ObservableList<String> listAtelier = FXCollections.observableArrayList("map.txt","map2.txt","map3.txt","map4.txt","map5.txt","mapEchec.txt");
+		ObservableList<String> listAlgo = FXCollections.observableArrayList("Largeur","Profondeur","A*");
 		
 		Atelier.setItems(listAtelier);
 		Algo.setItems(listAlgo);
@@ -138,7 +154,8 @@ public class LabyrintheController {
 	{
        Queue<Step> r = new LinkedList<Step>();
        int[][] tab = labyrinthe.getLabyrinthe();
-	
+       long tempsMicro = TimeUnit.NANOSECONDS.toMicros(algoRecherche.getTime());
+       Temps.setText("Temps : " + tempsMicro + "us");
 		try
 		{
 			r.add(chemin.Get_Previous_Box());

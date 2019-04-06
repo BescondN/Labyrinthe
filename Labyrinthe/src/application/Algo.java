@@ -8,10 +8,18 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class Algo<E> {
+	
+	
+	private long time;      
 		
+	public long getTime()
+	{
+		return time;
+	}
 	
 	public Step<E> Largeur(Explorable<E> exp)
 	{
+		long startTime = System.nanoTime();
 		HashMap<E,Boolean> marque = new HashMap<E, Boolean>();
 
 		Queue<Step<E>> queue = new LinkedList<Step<E>>();
@@ -40,17 +48,24 @@ public class Algo<E> {
 					etape2.Set_Previous_Box(etape);
 					if(exp.estArrivee(etape2))
 					{
+						long stopTime = System.nanoTime();
+						this.time = stopTime - startTime;
 						return etape2;
 					}
 				}
 				
 			}
 		}
+		long stopTime = System.nanoTime();
+		this.time = stopTime - startTime;
+
 		return null;
 	}
-	int longueur=0;
 	public Step<E> Profondeur(Explorable<E> exp)
 	{
+		long startTime = System.nanoTime();
+		int longueur=0;
+
 		Step<E> arrivee = null;
 		HashMap<E,Step<E>> marque = new HashMap<E, Step<E>>();
         Stack<Step<E>> stack = new Stack<Step<E>>();
@@ -100,6 +115,8 @@ public class Algo<E> {
         		}
 			}
         }
+        long stopTime = System.nanoTime();
+		this.time = stopTime - startTime;
         return arrivee;
 	}
 }
