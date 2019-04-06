@@ -1,51 +1,39 @@
-//=============================================================================//
-//                    Name of file   : "Labyrinthe.java"                       //
-//                    Author         : Alexandre Farret                        //
-//                    Creation date  : 02/04/2019                              //
-//                    Last update    : 06/04/2019                              //
-//=============================================================================//
-
 package application;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Labyrinthe implements Explorable {
+
+public class Labyrinthe implements Explorable<Step<Integer>> {
 	
-	//---- Attributs ----
 	private int labyrinthe[][];
 	private List<String> lignes;
 	private int nbligne;
 	private int nbcolone;
-	private Coordonnees startingBox;
-	private Coordonnees arrivalBox;
+	public Coordonnees startingBox;
+	public Coordonnees arrivalBox;
 	private String NameLab;
 	
-	//---- Methods ----
 	/**
  	* Builder of the Labyrinth
  	* @param file Base file
  	*/
-	public Labyrinthe(String file)
-	{
+	public Labyrinthe(String file) {
 		chargerFichier(file);
 		labyrinthe = new int[nbligne][nbcolone];
 		createLabyrinthe();
-		generateStartingBox();
-		generateArrivalBox();
 	}
 	
 	/**
 	 * Loading the file
 	 * @param file Base file
 	 */
-	public void chargerFichier(String file)
-	{
+	public void chargerFichier(String file) {
 		Path road = Paths.get(file);
-		try 
-		{
+		try {
 			String start;
 			String end;
 			String size[];
@@ -60,9 +48,22 @@ public class Labyrinthe implements Explorable {
 			taille[1] = Integer.parseInt(size[1]);
 			nbligne = taille[0];
 			nbcolone =  taille[1];
+			
+			String startX,startY, endX, endY;
+			
+			startX = start.split("	")[0];
+			startY = start.split("	")[1];
+			
+			endX = end.split("	")[0];
+			endY = end.split("	")[1];
+			
+			startingBox = new Coordonnees(Integer.parseInt(startX), Integer.parseInt(startY));
+			arrivalBox = new Coordonnees(Integer.parseInt(endX), Integer.parseInt(endY));
+
+			
+			
 		}
-		catch (Exception e)
-		{
+		catch (Exception e){
 			System.out.println(e);
 			System.out.println("ERROR : Le fichier ne s'ouvre pas...");
 		}
@@ -71,8 +72,7 @@ public class Labyrinthe implements Explorable {
 	/**
 	 * Creation of the labyrinth
 	 */
-	public void createLabyrinthe()
-	{
+	public void createLabyrinthe() {
 		char pointage;
 		for (int i=4; i<lignes.size(); i++)
 		{
@@ -91,137 +91,83 @@ public class Labyrinthe implements Explorable {
 		}
 	}
 	
-	/**
-	 * Generate starting box
+	/*
+	 * Turn the labyrinth upside down
 	 */
-	public void generateStartingBox()
-	{
-		String s_starting[] = lignes.get(1).split("	");
-		int starting[] = new int[2];
-		starting[0] = Integer.parseInt(s_starting[0]);
-		starting[1] = Integer.parseInt(s_starting[1]);
-		labyrinthe[starting[0]][starting[1]] = 2;
-		startingBox = new Coordonnees(starting[0], starting[1]);
-	}
-	
-	/**
-	 * Generate arrival box
-	 */
-	public void generateArrivalBox()
-	{
-		String s_arrival[] = lignes.get(2).split("	");
-		int arrival[] = new int[2];
-		arrival[0] = Integer.parseInt(s_arrival[0]);
-		arrival[1] = Integer.parseInt(s_arrival[1]);
-		labyrinthe[arrival[0]][arrival[1]] = 3;
-		arrivalBox = new Coordonnees(arrival[0], arrival[1]);
-	}
-	
-	/**
-	 * Return matrix labyrinth
-	 * @return table labyrinth
-	 */
-	public int[][] getLabyrinthe()
-	{
+	public int[][] getLabyrinthe() {
 		return labyrinthe;
 	}
-	
-	/**
-	 * Return matrix labyrinth
-	 * @return table labyrinth
-	 */
-	public void afficherLabyrinthe()
-	{
-		for(int i=0; i<nbligne; i++) {
-			System.out.println();
-			for(int j=0; j<nbcolone; j++) {
-				System.out.print(labyrinthe[i][j]);
-			}
-		}
-	}
-	
-	/**
-	 * Return the name of the labyrinth
-	 * @return name labyrinth
-	 */
-	public String getNameLabyrinthe() 
-	{
-		return NameLab;
-	}
-	
-	//public Step[] aroundBox(int hashCode)
-	//{
-	//	Step nextBox[] = new Step[4];
-	//	Coordonnees actualBox = new Coordonnees(hashCode);
-	//	Coordonnees top, below, left, right;
-	//	top = new Coordonnees(actualBox.getx() + 1, actualBox.gety());
-	//	if (top.test(nbligne, nbcolone) == true) {
-	//		if (labyrinthe[actualBox.getx() + 1][actualBox.gety()] != 1)
-	//		{
-	//			Step nextBoxTop = new Step(hashCode, top.gethashCode());
-	//			nextBox[0] = nextBoxTop;
-	//			
-	//		}
-	//	}
-	//	below = new Coordonnees(actualBox.getx() - 1, actualBox.gety());
-	//	left = new Coordonnees(actualBox.getx(), actualBox.gety() - 1);
-	//	right = new Coordonnees(actualBox.getx(), actualBox.gety() + 1);
-	//	//Genere un hash code pour chacune
-	//	//Retourne sous forme de step
-    //
-	//	Step nextBoxbelow = new (hashCode, );
-	//	Step nextBoxleft = new (hashCode, );
-	//	Step nextBoxright = new (hashCode, );
-	//	return nextBox;
-	//}
 
-		
-		
-
-
-	
-	
-	//Divers...
-	
 	@Override
 	public Step getDepart() {
 		
-		//return new Step(startingBox.hashCode());
-		// TODO Auto-generated method stub
-		return null;
+
+		return new Step<Integer>(startingBox.gethashCode());
 	}
 
 	@Override
 	public Step getArrivee() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Step<Coordonnees>(arrivalBox);
 	}
 
 	@Override
-	public Boolean estArrivee() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean estArrivee(Step etape) {
+		
+		Coordonnees coor = Coordonnees.generateCoordonnees((int) etape.Get_Own_Box());
+		
+		
+		List<Step<Integer>> adjacentsBoxes = getCasesVoisines(etape);
+		Coordonnees y;
+		for(Step<Integer> x : adjacentsBoxes)
+		{
+			y = Coordonnees.generateCoordonnees(x.Get_Own_Box());
+			
+		}
+		
+		if(coor.x == arrivalBox.x && coor.y == arrivalBox.y)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public List getCasesVoisines() {
-		// TODO Auto-generated method stub
-		return null;
+	public List getCasesVoisines(Step etape) {
+		
+		List<Step<Integer>> adjacentsBoxes = new ArrayList<Step<Integer>>();
+		Coordonnees currentStep = (Coordonnees.generateCoordonnees((int)etape.Get_Own_Box()));
+		
+		if(currentStep.x>0)
+		{
+			if(labyrinthe[currentStep.x-1][currentStep.y] == 0)
+			{
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x-1, currentStep.y).gethashCode()));
+			}
+		}
+		if(currentStep.x<labyrinthe.length-1)
+		{
+			if(labyrinthe[currentStep.x+1][currentStep.y] == 0)
+			{
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x+1, currentStep.y).gethashCode()));
+			}
+		}
+		if(currentStep.y>0)
+		{
+			if(labyrinthe[currentStep.x][currentStep.y-1] == 0)
+			{
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x, currentStep.y-1).gethashCode()));
+			}
+		}
+		if(currentStep.y<labyrinthe[0].length-1)
+		{
+			if(labyrinthe[currentStep.x][currentStep.y+1] == 0)
+			{
+				adjacentsBoxes.add(new Step<Integer>(new Coordonnees(currentStep.x, currentStep.y+1).gethashCode()));
+			}
+		}
+		return adjacentsBoxes;
 	}
-	
-	
-	//GénérerDepart
-	//GénérerSortie
-	//RatournerDépart
-	//RetournerSortie
-	
-	
-	
-	//Cherche case départ
-	//Chercher case d'arrivée
-	//getCaseDépart
-	//getCaseArrivée
-	//getCaseVoisine
 	
 	
 	

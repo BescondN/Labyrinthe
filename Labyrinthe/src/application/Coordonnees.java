@@ -1,16 +1,17 @@
-//=============================================================================//
-//                    Name of file   : "Coordonnees.java"                      //
-//                    Author         : Quentin Lamoure                         //
-//                    Co-author      : Alexandre Farret                        //
-//                    Creation date  : 02/04/2019                              //
-//                    Last update    : 06/04/2019                              //
-//=============================================================================//
-
 package application;
 
+/**
+ * @author Quentin
+ * 02/04/2016 22:24
+ */
 public class Coordonnees {
-	//---- Attributs ----
-	private int x, y, hashcode;
+	
+
+	public int x;
+	public int y;
+	public int hashcode;
+	
+	
 	
 	//---- Methods ----
 	/**
@@ -25,38 +26,31 @@ public class Coordonnees {
 		generateHashcode();
 	}
 	
-	/**
- 	* Builder of the Labyrinth
- 	* @param hashcode matrix number hashcode
- 	*/
-	public Coordonnees(int hashcode)
-	{
-		this.hashcode = hashcode;
-		generateCoordonnees(hashcode);
-	}
+	
 
 	/**
  	* Generate a code with coords X and Y (limit to a matrix of 10 000 x 10 000)
  	* @return (coordY) + 10 000 * coordX
  	*/
-	public int generateHashcode()
+	public void generateHashcode()
 	{
-		hashcode = y;
-		hashcode = hashcode + ( 10000 * x );
-		return hashcode;
+		int hashcode = y;
+		hashcode += ( 10000 * x );
+		this.hashcode = hashcode;
 	}
+	
+ 	
 	
 	/**
 	 * Decode() generate coords X and Y with a hashcode
 	 * @param hash is a hashcode
 	 * @return {coordX, coordY}
 	 */
-	public int[] generateCoordonnees(int hash) {
+	public static Coordonnees generateCoordonnees(int hash) {
 		
-		x = hash % 10000;
-		y = (hash - x) / 10000;
-		int[] coordonnees = {x, y};
-		return coordonnees;
+		int y = hash % 10000;
+		int x = (hash - y) / 10000;
+		return new Coordonnees(x,y);
 	}
 	
 	/**
@@ -84,30 +78,5 @@ public class Coordonnees {
 	public int gethashCode()
 	{
 		return hashcode;
-	}
-	
-	/**
-	 * Checks if the box exists
-	 * @param number ligne labyrinthe
-	 * @param number colone labyrinthe
-	 * @return Existence
-	 */
-	public boolean test(int nbligne, int nbcolone)
-	{
-		if (x <= nbligne)
-		{
-			if (y <= nbcolone)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
 	}
 }

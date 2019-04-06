@@ -8,8 +8,8 @@ public interface Explorable<E> {
 	
 	public Step<E> getArrivee();
 	
-	public Boolean estArrivee();
+	public Boolean estArrivee(Step<E> etape);
 	
-	public List<Step<E>> getCasesVoisines();
+	public List<Step<E>> getCasesVoisines(Step<E> etape);
 
 }
