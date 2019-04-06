@@ -2,7 +2,7 @@
 //                    Name of file   : "Labyrinthe.java"                       //
 //                    Author         : Alexandre Farret                        //
 //                    Creation date  : 02/04/2019                              //
-//                    Last update    : 05/04/2019                              //
+//                    Last update    : 06/04/2019                              //
 //=============================================================================//
 
 package application;
@@ -149,12 +149,30 @@ public class Labyrinthe implements Explorable {
 		return NameLab;
 	}
 	
-	
-	//public Step aroundBox(int hashCode)
+	//public Step[] aroundBox(int hashCode)
 	//{
-		//Retourne case voisine
-		//Genere un hash code pour chacune
-		//Retourne sous forme de step
+	//	Step nextBox[] = new Step[4];
+	//	Coordonnees actualBox = new Coordonnees(hashCode);
+	//	Coordonnees top, below, left, right;
+	//	top = new Coordonnees(actualBox.getx() + 1, actualBox.gety());
+	//	if (top.test(nbligne, nbcolone) == true) {
+	//		if (labyrinthe[actualBox.getx() + 1][actualBox.gety()] != 1)
+	//		{
+	//			Step nextBoxTop = new Step(hashCode, top.gethashCode());
+	//			nextBox[0] = nextBoxTop;
+	//			
+	//		}
+	//	}
+	//	below = new Coordonnees(actualBox.getx() - 1, actualBox.gety());
+	//	left = new Coordonnees(actualBox.getx(), actualBox.gety() - 1);
+	//	right = new Coordonnees(actualBox.getx(), actualBox.gety() + 1);
+	//	//Genere un hash code pour chacune
+	//	//Retourne sous forme de step
+    //
+	//	Step nextBoxbelow = new (hashCode, );
+	//	Step nextBoxleft = new (hashCode, );
+	//	Step nextBoxright = new (hashCode, );
+	//	return nextBox;
 	//}
 
 		

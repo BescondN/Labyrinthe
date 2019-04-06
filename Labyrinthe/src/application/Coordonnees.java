@@ -3,7 +3,7 @@
 //                    Author         : Quentin Lamoure                         //
 //                    Co-author      : Alexandre Farret                        //
 //                    Creation date  : 02/04/2019                              //
-//                    Last update    : 05/04/2019                              //
+//                    Last update    : 06/04/2019                              //
 //=============================================================================//
 
 package application;
@@ -32,6 +32,7 @@ public class Coordonnees {
 	public Coordonnees(int hashcode)
 	{
 		this.hashcode = hashcode;
+		generateCoordonnees(hashcode);
 	}
 
 	/**
@@ -56,5 +57,57 @@ public class Coordonnees {
 		y = (hash - x) / 10000;
 		int[] coordonnees = {x, y};
 		return coordonnees;
+	}
+	
+	/**
+	 * Return x
+	 * @return x
+	 */
+	public int getx()
+	{
+		return x;
+	}
+	
+	/**
+	 * Return y
+	 * @return y
+	 */
+	public int gety()
+	{
+		return y;
+	}
+	
+	/**
+	 * Return Hash Code
+	 * @return Hash Code
+	 */
+	public int gethashCode()
+	{
+		return hashcode;
+	}
+	
+	/**
+	 * Checks if the box exists
+	 * @param number ligne labyrinthe
+	 * @param number colone labyrinthe
+	 * @return Existence
+	 */
+	public boolean test(int nbligne, int nbcolone)
+	{
+		if (x <= nbligne)
+		{
+			if (y <= nbcolone)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
