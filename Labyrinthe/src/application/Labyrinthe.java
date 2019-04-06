@@ -100,6 +100,7 @@ public class Labyrinthe implements Explorable {
 		int starting[] = new int[2];
 		starting[0] = Integer.parseInt(s_starting[0]);
 		starting[1] = Integer.parseInt(s_starting[1]);
+		labyrinthe[starting[0]][starting[1]] = 2;
 		startingBox = new Coordonnees(starting[0], starting[1]);
 	}
 	
@@ -108,10 +109,11 @@ public class Labyrinthe implements Explorable {
 	 */
 	public void generateArrivalBox()
 	{
-		String s_arrival[] = lignes.get(1).split("	");
+		String s_arrival[] = lignes.get(2).split("	");
 		int arrival[] = new int[2];
 		arrival[0] = Integer.parseInt(s_arrival[0]);
 		arrival[1] = Integer.parseInt(s_arrival[1]);
+		labyrinthe[arrival[0]][arrival[1]] = 3;
 		arrivalBox = new Coordonnees(arrival[0], arrival[1]);
 	}
 	
@@ -122,6 +124,20 @@ public class Labyrinthe implements Explorable {
 	public int[][] getLabyrinthe()
 	{
 		return labyrinthe;
+	}
+	
+	/**
+	 * Return matrix labyrinth
+	 * @return table labyrinth
+	 */
+	public void afficherLabyrinthe()
+	{
+		for(int i=0; i<nbligne; i++) {
+			System.out.println();
+			for(int j=0; j<nbcolone; j++) {
+				System.out.print(labyrinthe[i][j]);
+			}
+		}
 	}
 	
 	/**
