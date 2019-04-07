@@ -11,5 +11,7 @@ public interface Explorable<E> {
 	public Boolean estArrivee(Step<E> etape);
 	
 	public List<Step<E>> getCasesVoisines(Step<E> etape);
+	
+	public void setLongueurArrivee(Step<E> etape);
 
 }

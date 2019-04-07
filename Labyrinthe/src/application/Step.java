@@ -1,11 +1,14 @@
 package application;
 
 
-public class Step<E> {
+public class Step<E> implements Comparable<Step<E>>{
 
 	private E own_box;
 	private Step<E> previous_box;
-	public int longueur;
+	private int longueurDepart;
+	private int longueurArrivee;
+
+	
 	
 	/** Constructor of Step
 	 * @param own_box
@@ -15,7 +18,8 @@ public class Step<E> {
 	public Step(E e) {
 		super();
 		own_box = e;
-		longueur=0;
+		longueurDepart=0;
+		longueurArrivee=0;
 	}
 	
 	/**
@@ -38,4 +42,34 @@ public class Step<E> {
 	public void Set_Previous_Box(Step<E> etape) {
 		this.previous_box = etape;		
 	}
+	
+	public int getLongueurDepart() {
+		return longueurDepart;
+	}
+
+	public void setLongueurDepart(int longueurDepart) {
+		this.longueurDepart = longueurDepart;
+	}
+
+	public int getLongueurArrivee() {
+		return longueurArrivee;
+	}
+
+	public void setLongueurArrivee(int longueurArrivee) {
+		this.longueurArrivee = longueurArrivee;
+	}
+	public int getFValue()
+	{
+		return longueurDepart + longueurArrivee;
+	}
+
+	@Override
+	public int compareTo(Step<E> o) {
+
+		if (getFValue() < o.getFValue() ) return -1 ;
+		else if ( getFValue() == o.getFValue()) return 0 ;
+		else return 1 ;
+	}
+
+	
 }

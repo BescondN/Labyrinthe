@@ -32,7 +32,7 @@ public class Labyrinthe implements Explorable<Step<Integer>> {
 	 * @param file Base file
 	 */
 	public void chargerFichier(String file) {
-		Path road = Paths.get(file);
+		Path road = Paths.get("Labyrinthe/"+file);
 		try {
 			String start;
 			String end;
@@ -108,7 +108,7 @@ public class Labyrinthe implements Explorable<Step<Integer>> {
 	@Override
 	public Step getArrivee() {
 		
-		return new Step<Coordonnees>(arrivalBox);
+		return new Step<Integer>(arrivalBox.gethashCode());
 	}
 
 	@Override
@@ -157,6 +157,15 @@ public class Labyrinthe implements Explorable<Step<Integer>> {
 			}
 		}
 		return adjacentsBoxes;
+	}
+
+	@Override
+	public void setLongueurArrivee(Step etape) {
+		
+		Coordonnees coor = Coordonnees.generateCoordonnees((int) etape.Get_Own_Box());
+		
+		etape.setLongueurArrivee(Math.abs(coor.getx()-arrivalBox.getx())+Math.abs(coor.gety()-arrivalBox.gety()));
+		
 	}
 	
 	

@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class Algo<E> {
 		HashMap<E,Step<E>> marque = new HashMap<E, Step<E>>();
         Stack<Step<E>> stack = new Stack<Step<E>>();
         Step<E> etape = exp.getDepart();
-        etape.longueur = longueur;
+        etape.setLongueurDepart(longueur);
         marque.put(etape.Get_Own_Box(), etape);
         Step<E> etape2 = null;
         stack.add(etape);
@@ -80,10 +81,6 @@ public class Algo<E> {
         	
             longueur++;
         	etape = stack.pop();
-        	if((int)etape.Get_Own_Box() == 20001)
-			{
-				System.out.println("");
-			}
         	casesVoisines = exp.getCasesVoisines(etape);
         	for(int i=0;i<casesVoisines.size();i++)
 			{
@@ -94,7 +91,7 @@ public class Algo<E> {
 					marque.put(etape2.Get_Own_Box(), etape2);
 
 					stack.push(etape2);
-					etape2.longueur = longueur;
+					etape2.setLongueurDepart(longueur);
 					etape2.Set_Previous_Box(etape);
 					
 					if(exp.estArrivee(etape2))
@@ -106,17 +103,67 @@ public class Algo<E> {
         		{
         			
         			etape2 = marque.get(etape2.Get_Own_Box());
-        			if(etape2.longueur != 0 && etape2.longueur > etape.longueur+1)
-                	{
-                		etape2.longueur = etape.longueur+1;
-        				etape2.Set_Previous_Box(etape);
+        			if(!etape2.Get_Own_Box().equals(exp.getDepart().Get_Own_Box()))
+        			{
+        				if(etape2.Get_Previous_Box().compareTo(etape) == 1)
+                    	{
+                    		etape2.setLongueurDepart(etape.getLongueurDepart()+1);
+            				etape2.Set_Previous_Box(etape);
 
-                	}
+                    	}
+        			}
+        			
         		}
 			}
         }
         long stopTime = System.nanoTime();
 		this.time = stopTime - startTime;
         return arrivee;
+	}
+	public Step<E> Astar(Explorable<E> exp)
+	{
+		long startTime = System.nanoTime();
+		HashMap<E,Boolean> marque = new HashMap<E, Boolean>();
+		List<Step<E>> list = new ArrayList<Step<E>>();
+		Step<E> etape = exp.getDepart();
+        List<Step<E>> casesVoisines;
+        marque.put(etape.Get_Own_Box(), true);
+		Step<E> etape2;
+		int longueur=0;
+		etape.setLongueurDepart(longueur);
+		exp.setLongueurArrivee(etape);
+		list.add(etape);
+		
+		while(!list.isEmpty())
+		{
+			longueur++;
+			Collections.sort(list);
+			etape = list.remove(0);
+			casesVoisines = exp.getCasesVoisines(etape);
+			for(int i=0;i<casesVoisines.size();i++)
+			{
+				etape2 = casesVoisines.get(i);
+				
+				if(!marque.containsKey(etape2.Get_Own_Box()))
+				{
+					marque.put(etape2.Get_Own_Box(), true);
+					
+					list.add(etape2);
+					etape2.setLongueurDepart(longueur);
+					etape2.Set_Previous_Box(etape);
+					if(exp.estArrivee(etape2))
+					{
+						long stopTime = System.nanoTime();
+						this.time = stopTime - startTime;
+						return etape2;
+					}
+				}
+				
+			}
+			
+		}
+		long stopTime = System.nanoTime();
+		this.time = stopTime - startTime;
+		return null;
 	}
 }

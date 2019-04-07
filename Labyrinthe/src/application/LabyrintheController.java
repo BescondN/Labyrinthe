@@ -6,6 +6,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
@@ -72,7 +77,7 @@ public class LabyrintheController {
 			}
 			else if(Algo.getValue().toString().equals("A*"))
 			{
-				showWay(algoRecherche.Largeur(labyrinthe));
+				showWay(algoRecherche.Astar(labyrinthe));
 			}
 		}
 	}
@@ -116,7 +121,11 @@ public class LabyrintheController {
 	
 	public void initialize()
 	{
-		ObservableList<String> listAtelier = FXCollections.observableArrayList("map.txt","map2.txt","map3.txt","map4.txt","map5.txt","mapEchec.txt");
+		File repertoire = new File(System.getProperty("user.dir")+"/Labyrinthe/");
+        String liste[] = repertoire.list();      
+        ObservableList<String> listAtelier = FXCollections.observableArrayList();
+        listAtelier.addAll(liste);	
+		
 		ObservableList<String> listAlgo = FXCollections.observableArrayList("Largeur","Profondeur","A*");
 		
 		Atelier.setItems(listAtelier);
