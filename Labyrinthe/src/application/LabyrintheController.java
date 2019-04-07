@@ -1,5 +1,6 @@
 package application;
 
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,7 +18,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class LabyrintheController {
 		
@@ -77,7 +85,7 @@ public class LabyrintheController {
 		
 		ComboBox selectAtelier = (ComboBox)evt.getSource();
 		labyrinthe = new Labyrinthe(selectAtelier.getValue().toString());
-		Affichage(labyrinthe);
+		createContent(labyrinthe);
 		
 	}
 	
@@ -93,7 +101,7 @@ public class LabyrintheController {
 		else
 		{
 			labyrinthe = new Labyrinthe(Atelier.getValue().toString());
-			Affichage(labyrinthe);
+			createContent(labyrinthe);
 		}
 		
 		
@@ -103,42 +111,9 @@ public class LabyrintheController {
 		
 	/************Affichage du labyrinthe***********/
 	@FXML
-	public  GridPane grid;	
+	public  Pane grid;	
 	
 	
-	public  void Affichage(Labyrinthe lab) {
-	
-		
-
-		grid.getChildren().clear();
-		int[][] tab = lab.getLabyrinthe();
-
-			    
-		 for(int i = 0; i < tab.length; i++)
-		 {
-             for(int j = 0; j < tab[i].length; j++)
-             {
-                 TextField tf = new TextField();
-                 tf.setPrefSize(50,50);
-                 tf.setMaxSize(50,50);
-                 tf.setEditable(false);
-                 if(tab[i][j] == 1)
-                 {
-                     tf.setStyle("-fx-control-inner-background: black");
-                 }
-           
-   
-                 
-            	 grid.add(tf, j, i);
-             }
-		 }
-		Coordonnees depart = lab.startingBox;
-		Coordonnees arrivee =lab.arrivalBox;
-
-		((TextField)grid.getChildren().get(depart.getx()*(tab[0].length)+depart.gety())).setStyle("-fx-control-inner-background: green");
-		((TextField)grid.getChildren().get(arrivee.getx()*(tab[0].length)+arrivee.gety())).setStyle("-fx-control-inner-background: red");
-		
-	}
 	public void initialize()
 	{
 		ObservableList<String> listAtelier = FXCollections.observableArrayList("map.txt","map2.txt","map3.txt","map4.txt","map5.txt","mapEchec.txt");
@@ -169,8 +144,7 @@ public class LabyrintheController {
 				{
 					r.add(chemin.Get_Previous_Box());
 					en = (Coordonnees.generateCoordonnees((int) chemin.Get_Own_Box()));
-					
-					((TextField)grid.getChildren().get(en.getx()*(tab[0].length)+en.gety())).setStyle("-fx-control-inner-background: blue");
+					allTile[en.getx()][en.gety()].uneCase.setFill(Color.CORAL);
 				}
 				
 			}
@@ -180,5 +154,61 @@ public class LabyrintheController {
 			JOptionPane.showMessageDialog(null,"Pas de chemin !","Labyrinthe", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
+	
+	private Tile[][] allTile;
+	
+	 private static final int CASE_SIZE = 15;
+	 
+	private void createContent(Labyrinthe lab) {
+		
+        Pane laby = new Pane();
+        grid.getChildren().clear();
+        
+        int[][] tab = lab.getLabyrinthe();
+        allTile = new Tile[tab.length][tab[0].length];
+        for (int i = 0; i < tab.length; i++) 
+        {
+            for (int j = 0; j < tab[i].length; j++) 
+            {
+                Tile tile = new Tile(j, i, tab[i][j]);
+                allTile[i][j] = tile;
+                laby.getChildren().add(tile);
+            }
+        }
+        
+        Coordonnees depart = lab.startingBox;
+		Coordonnees arrivee =lab.arrivalBox;
+		
+        Text textD = new Text("D");
+
+        Text textA = new Text("A");
+
+		allTile[depart.getx()][depart.gety()].uneCase.setFill(Color.LIGHTSKYBLUE);
+		allTile[depart.getx()][depart.gety()].getChildren().addAll(textD);
+		allTile[arrivee.getx()][arrivee.gety()].uneCase.setFill(Color.GREENYELLOW);
+		allTile[arrivee.getx()][arrivee.gety()].getChildren().addAll(textA);
+        
+        grid.getChildren().add(laby);
+    }
+	
+	private class Tile extends StackPane {
+        private int x, y;
+
+        private Rectangle uneCase = new Rectangle(CASE_SIZE,CASE_SIZE);
+    
+        public Tile(int x, int y, int val) {
+            this.x = x;
+            this.y = y;
+                       
+            if(val == 0)
+            	uneCase.setFill(Color.TRANSPARENT);
+
+            getChildren().addAll(uneCase);
+            uneCase.setStroke(Color.LIGHTGRAY);
+            setTranslateX(x * uneCase.getWidth());
+            setTranslateY(y * uneCase.getHeight());
+            		
+        }
+    }
 	
 }
