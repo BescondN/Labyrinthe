@@ -45,10 +45,6 @@
       </AnchorPane>
    </right>
    <center>
-      <Pane fx:id="grid" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" />
-         </children>
-      </Pane>
+      <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

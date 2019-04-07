@@ -111,7 +111,7 @@ public class LabyrintheController {
 		
 	/************Affichage du labyrinthe***********/
 	@FXML
-	public  Pane grid;	
+	public  Pane pane;	
 	
 	
 	public void initialize()
@@ -157,14 +157,24 @@ public class LabyrintheController {
 	
 	private Tile[][] allTile;
 	
-	 private static final int CASE_SIZE = 15;
+	private int case_size = 15;
 	 
 	private void createContent(Labyrinthe lab) {
 		
         Pane laby = new Pane();
-        grid.getChildren().clear();
+        pane.getChildren().clear();
         
+                
         int[][] tab = lab.getLabyrinthe();
+        
+        if(1300/tab[0].length > 50)
+        {
+        	case_size = 50;
+        }
+        else
+        {
+        	case_size = 1300/tab[0].length;
+        }
         allTile = new Tile[tab.length][tab[0].length];
         for (int i = 0; i < tab.length; i++) 
         {
@@ -172,6 +182,7 @@ public class LabyrintheController {
             {
                 Tile tile = new Tile(j, i, tab[i][j]);
                 allTile[i][j] = tile;
+                tile.setAlignment(Pos.CENTER);
                 laby.getChildren().add(tile);
             }
         }
@@ -188,13 +199,13 @@ public class LabyrintheController {
 		allTile[arrivee.getx()][arrivee.gety()].uneCase.setFill(Color.GREENYELLOW);
 		allTile[arrivee.getx()][arrivee.gety()].getChildren().addAll(textA);
         
-        grid.getChildren().add(laby);
+        pane.getChildren().add(laby);
     }
 	
 	private class Tile extends StackPane {
         private int x, y;
 
-        private Rectangle uneCase = new Rectangle(CASE_SIZE,CASE_SIZE);
+        private Rectangle uneCase = new Rectangle(case_size,case_size);
     
         public Tile(int x, int y, int val) {
             this.x = x;
