@@ -123,47 +123,65 @@ public class Algo<E> {
 	public Step<E> Astar(Explorable<E> exp)
 	{
 		long startTime = System.nanoTime();
-		HashMap<E,Boolean> marque = new HashMap<E, Boolean>();
-		List<Step<E>> list = new ArrayList<Step<E>>();
-		Step<E> etape = exp.getDepart();
-        List<Step<E>> casesVoisines;
-        marque.put(etape.Get_Own_Box(), true);
-		Step<E> etape2;
 		int longueur=0;
-		etape.setLongueurDepart(longueur);
-		exp.setLongueurArrivee(etape);
-		list.add(etape);
-		
-		while(!list.isEmpty())
-		{
-			longueur++;
-			Collections.sort(list);
-			etape = list.remove(0);
-			casesVoisines = exp.getCasesVoisines(etape);
-			for(int i=0;i<casesVoisines.size();i++)
+
+		Step<E> arrivee = null;
+		HashMap<E,Step<E>> marque = new HashMap<E, Step<E>>();
+        Stack<Step<E>> stack = new Stack<Step<E>>();
+        Step<E> etape = exp.getDepart();
+        etape.setLongueurDepart(longueur);
+        marque.put(etape.Get_Own_Box(), etape);
+        Step<E> etape2 = null;
+        stack.add(etape);
+        List<Step<E>> casesVoisines;
+                
+        while(!stack.isEmpty()){
+        	
+            longueur++;
+        	etape = stack.pop();
+        	casesVoisines = exp.getCasesVoisines(etape);
+        	for(Step<E> e : casesVoisines)
+    		{
+    			exp.setLongueurArrivee(e);
+    		}
+    		Collections.sort(casesVoisines);
+        	for(int i=casesVoisines.size()-1;i>=0;i--)
 			{
-				etape2 = casesVoisines.get(i);
-				
-				if(!marque.containsKey(etape2.Get_Own_Box()))
+        		etape2 = casesVoisines.get(i); 
+        		
+        		
+        		if(!marque.containsKey(etape2.Get_Own_Box()))
 				{
-					marque.put(etape2.Get_Own_Box(), true);
-					
-					list.add(etape2);
+					marque.put(etape2.Get_Own_Box(), etape2);
+
+					stack.push(etape2);
 					etape2.setLongueurDepart(longueur);
 					etape2.Set_Previous_Box(etape);
+					
 					if(exp.estArrivee(etape2))
 					{
-						long stopTime = System.nanoTime();
-						this.time = stopTime - startTime;
-						return etape2;
+						arrivee = etape2;
 					}
 				}
-				
+        		else
+        		{
+        			
+        			etape2 = marque.get(etape2.Get_Own_Box());
+        			if(!etape2.Get_Own_Box().equals(exp.getDepart().Get_Own_Box()))
+        			{
+        				if(etape2.Get_Previous_Box().getLongueurDepart() > etape.getLongueurDepart())
+                    	{
+                    		etape2.setLongueurDepart(etape.getLongueurDepart()+1);
+            				etape2.Set_Previous_Box(etape);
+
+                    	}
+        			}
+        			
+        		}
 			}
-			
-		}
-		long stopTime = System.nanoTime();
+        }
+        long stopTime = System.nanoTime();
 		this.time = stopTime - startTime;
-		return null;
+        return arrivee;
 	}
 }
